@@ -12,6 +12,10 @@ BOOL monitorAudioRouteChange = NO;
 
 @implementation PhoneDialer
 
++ (BOOL)available {
+    return [[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:@"tel://"]];
+}
+
 // - (void)call:(CDVInvokedUrlCommand*)command
 // {
 //     [self.commandDelegate runInBackground:^{
