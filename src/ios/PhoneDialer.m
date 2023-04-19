@@ -105,7 +105,7 @@ BOOL monitorAudioRouteChange = NO;
 
         // run in mainthread as below 
         dispatch_async(dispatch_get_main_queue(), ^{
-            if(![CFCallNumber available]) {
+            if(![PhoneDialer available]) {
                 pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"NoFeatureCallSupported"];
             }
             else if(![[UIApplication sharedApplication] openURL:[NSURL URLWithString:number]]) {
