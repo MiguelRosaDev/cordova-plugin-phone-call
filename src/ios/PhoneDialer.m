@@ -101,6 +101,7 @@ BOOL monitorAudioRouteChange = NO;
             pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"feature"];
         } else {
             
+            NSLog(@"Batatas 1");
             NSString* url;
             NSString* number = [command.arguments objectAtIndex:0];
             NSString* appChooser = [command.arguments objectAtIndex:1];
@@ -119,23 +120,29 @@ BOOL monitorAudioRouteChange = NO;
                 // [[NSNotificationCenter defaultCenter] addObserver:self selector:@selector(handleAudioRouteChange:) name:AVAudioSessionRouteChangeNotification object:nil];                            
         
                 // openURL is expected to fail on devices that do not have the Phone app, such as simulators, iPad, iPod touch
+                NSLog(@"Batatas 2");
                 if(![[UIApplication sharedApplication] canOpenURL:[NSURL URLWithString:url]]) {
+                    NSLog(@"Batatas 3");
                     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"feature"];
                 }
                 else if(![[UIApplication sharedApplication] openURL:[NSURL URLWithString:url]]) {
+                    NSLog(@"Batatas 4");
                     // missing phone number
                     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"notcall"];
                 } else {
+                    NSLog(@"Batatas 5");
                     pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_OK];
                 }
 
                 if([[IsSpeakerOn lowercaseString] isEqualToString: @"true"]){
                     AVAudioSession *sessionInstance = [AVAudioSession sharedInstance];
-                    BOOL success = [sessionInstance overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];  
+                    BOOL success = [sessionInstance overrideOutputAudioPort:AVAudioSessionPortOverrideSpeaker error:nil];
+                    NSLog(@"Batatas 6");
                     if (success) {
                         NSLog(@"Configuring Speaker On");      
                     }               
                 } else {
+                    NSLog(@"Batatas 7");
                     AVAudioSession *sessionInstance = [AVAudioSession sharedInstance];
                     BOOL success = [sessionInstance overrideOutputAudioPort:AVAudioSessionPortOverrideNone error:nil];                                        
                     if (success) {
@@ -144,11 +151,12 @@ BOOL monitorAudioRouteChange = NO;
                 }    
 
             } else {
+                NSLog(@"Batatas 8");
                 // missing phone number
                 pluginResult = [CDVPluginResult resultWithStatus:CDVCommandStatus_ERROR messageAsString:@"empty"];
             }
         }
-        
+        NSLog(@"Batatas 9");
         // return result
         [self.commandDelegate sendPluginResult:pluginResult callbackId:command.callbackId];
     }];
